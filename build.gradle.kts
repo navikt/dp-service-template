@@ -1,5 +1,6 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     application
@@ -8,6 +9,15 @@ plugins {
     id(Shadow.shadow) version Shadow.version
 }
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+apply {
+    plugin(Spotless.spotless)
+}
 
 repositories {
     jcenter()
@@ -15,30 +25,30 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val gitVersion: groovy.lang.Closure<Any> by extra
-version = gitVersion()
-group = "no.nav.dagpenger"
-
 application {
-    applicationName = "dagpenger-SERVICENAME"
+    applicationName = "dp-SERVICENAME"
     mainClassName = "no.nav.dagpenger.SERVICENAME"
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
 }
 
-val kotlinLoggingVersion = "1.6.22"
-val fuelVersion = "2.1.0"
-val confluentVersion = "4.1.2"
-val kafkaVersion = "2.0.0"
+tasks.withType<KotlinCompile>().all {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+}
 
 dependencies {
     implementation(kotlin("stdlib"))
 
-    testImplementation(kotlin("test-junit5"))
+    implementation("com.github.navikt:rapids-and-rivers:task~target-jvm-8-SNAPSHOT")
+
+    implementation(Konfig.konfig)
+    implementation(Kotlin.Logging.kotlinLogging)
+
+    testImplementation(kotlin("test"))
     testImplementation(Junit5.api)
+    testImplementation(Junit5.kotlinRunner)
     testRuntimeOnly(Junit5.engine)
 }
 
@@ -52,7 +62,9 @@ spotless {
     }
 }
 
-tasks.getByName("test").finalizedBy("pitest")
+tasks.named("compileKotlin") {
+    dependsOn("spotlessCheck")
+}
 
 tasks.withType<Test> {
     testLogging {
