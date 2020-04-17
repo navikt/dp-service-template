@@ -53,6 +53,13 @@ object GradleWrapper {
     const val version = "5.5"
 }
 
+object Jackson {
+    const val version = "2.10.3"
+    const val core = "com.fasterxml.jackson.core:jackson-core:$version"
+    const val kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:$version"
+    const val jsr310 = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$version"
+}
+
 object Junit5 {
     const val version = "5.6.1"
     const val api = "org.junit.jupiter:junit-jupiter-api:$version"
