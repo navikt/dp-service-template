@@ -130,7 +130,7 @@ object KoTest {
     // for kotest core jvm assertion
     const val assertions = "iio.kotest:kotest-assertions-core-jvm:$version"
 
-    //for kotest property test
+    // for kotest property test
     const val property = "io.kotest:kotest-property-jvm:$version"
 }
 
