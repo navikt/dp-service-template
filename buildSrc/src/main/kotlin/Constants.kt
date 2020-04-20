@@ -121,6 +121,19 @@ object Kotlin {
     }
 }
 
+object KoTest {
+    const val version = "4.0.3"
+
+    // for kotest framework
+    const val runner = "io.kotest:kotest-runner-junit5-jvm:$version"
+
+    // for kotest core jvm assertion
+    const val assertions = "iio.kotest:kotest-assertions-core-jvm:$version"
+
+    //for kotest property test
+    const val property = "io.kotest:kotest-property-jvm:$version"
+}
+
 object Kotlinx {
     const val bimap = "com.uchuhimo:kotlinx-bimap:1.2"
 }
