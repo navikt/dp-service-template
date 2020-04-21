@@ -41,7 +41,7 @@ tasks.withType<KotlinCompile>().all {
 dependencies {
     implementation(kotlin("stdlib"))
 
-    implementation("com.github.navikt:rapids-and-rivers:task~target-jvm-8-SNAPSHOT")
+    implementation(RapidAndRivers)
 
     implementation(Konfig.konfig)
     implementation(Kotlin.Logging.kotlinLogging)
