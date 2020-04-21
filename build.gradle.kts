@@ -48,7 +48,7 @@ dependencies {
 
     testImplementation(kotlin("test"))
     testImplementation(Junit5.api)
-    testImplementation(Junit5.kotlinRunner)
+    testImplementation(KoTest.runner)
     testRuntimeOnly(Junit5.engine)
 }
 
