@@ -141,7 +141,7 @@ object Kotlinx {
 }
 
 object Ktor {
-    const val version = "1.2.6"
+    const val version = "1.3.2"
     const val server = "io.ktor:ktor-server:$version"
     const val serverNetty = "io.ktor:ktor-server-netty:$version"
     const val auth = "io.ktor:ktor-auth:$version"
@@ -172,7 +172,7 @@ object Micrometer {
 }
 
 object Moshi {
-    const val version = "1.8.0"
+    const val version = "1.9.2"
     const val moshi = "com.squareup.moshi:moshi:$version"
     const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:$version"
     const val moshiAdapters = "com.squareup.moshi:moshi-adapters:$version"
