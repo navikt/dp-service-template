@@ -67,6 +67,7 @@ tasks.named("compileKotlin") {
 }
 
 tasks.withType<Test> {
+    useJUnitPlatform()
     testLogging {
         showExceptions = true
         showStackTraces = true
