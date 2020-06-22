@@ -28,6 +28,7 @@ object Dagpenger {
         const val stsKlient = "com.github.navikt.dp-biblioteker:sts-klient:$version"
         const val grunnbeløp = "com.github.navikt.dp-biblioteker:grunnbelop:$version"
         const val ktorUtils = "com.github.navikt.dp-biblioteker:ktor-utils:$version"
+        const val ktorClientMetrics = "com.github.navikt.dp-biblioteker:ktor-client-metrics:$version"
     }
 
     const val Streams = "com.github.navikt:dagpenger-streams:2020.05.15-23.03.e0ab571caee4"
