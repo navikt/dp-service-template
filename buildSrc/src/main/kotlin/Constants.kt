@@ -136,7 +136,7 @@ object Kotlin {
 }
 
 object KoTest {
-    const val version = "4.0.3"
+    const val version = "4.2.0.RC2"
 
     // for kotest framework
     const val runner = "io.kotest:kotest-runner-junit5-jvm:$version"
