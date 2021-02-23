@@ -12,7 +12,7 @@ object Avro {
 
 object Auth {
     const val tokenSupportVersion = "1.3.3"
-    fun tokenSupportLibrary(name: String) = "no.nav.security.$name:$tokenSupportVersion"
+    fun tokenSupportLibrary(name: String) = "no.nav.security:$name:$tokenSupportVersion"
 }
 
 object Bekk {
