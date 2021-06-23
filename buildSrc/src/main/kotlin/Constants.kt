@@ -24,7 +24,7 @@ object Cucumber {
 object Dagpenger {
 
     object Biblioteker {
-        const val version = "2021.05.21-12.14.77e9e954892e"
+        const val version = "2021.06.23-13.05.a9a03bec5a52"
         const val stsKlient = "com.github.navikt.dp-biblioteker:sts-klient:$version"
         const val grunnbeløp = "com.github.navikt.dp-biblioteker:grunnbelop:$version"
         const val ktorUtils = "com.github.navikt.dp-biblioteker:ktor-utils:$version"
@@ -97,7 +97,7 @@ object JsonAssert {
 
 object Kafka {
     const val version = "2.8.0"
-        const val clients = "org.apache.kafka:kafka-clients:$version"
+    const val clients = "org.apache.kafka:kafka-clients:$version"
     const val streams = "org.apache.kafka:kafka-streams:$version"
     const val streamTestUtils = "org.apache.kafka:kafka-streams-test-utils:$version"
     fun library(name: String) = "org.apache.kafka:kafka-$name:$version"
@@ -179,7 +179,7 @@ object Log4j2 {
 }
 
 object Micrometer {
-    const val version = "1.4.0"
+    const val version = "1.7.0"
     const val prometheusRegistry = "io.micrometer:micrometer-registry-prometheus:$version"
 }
 
