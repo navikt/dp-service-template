@@ -117,7 +117,7 @@ object Konfig {
 }
 
 object Kotlin {
-    const val version = "1.5.30"
+    const val version = "1.6.0"
     const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$version"
 
     object Coroutines {
@@ -152,7 +152,7 @@ object Kotlinx {
 }
 
 object Ktor {
-    const val version = "1.6.3"
+    const val version = "1.6.6"
     const val server = "io.ktor:ktor-server:$version"
     const val serverNetty = "io.ktor:ktor-server-netty:$version"
     const val auth = "io.ktor:ktor-auth:$version"
