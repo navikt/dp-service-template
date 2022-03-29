@@ -6,17 +6,10 @@ Gradle brukes som byggverktøy og er bundlet inn.
 
 `./gradlew build`
 
-## Jenkins
-
-Alle repos som begynner på `dagpenger` eller `dp` blir automatisk fanget opp av
-Jenkins. Den sjekker om det finnes en Jenkinsfile og lager automatisk en jobb.
-
-[Jenkinsfile](Jenkinsfile) vil automatisk bygge med gradle. Lykkes bygget vil
-den automatisk deploye til preprod og kjøre end-to-end tester. De testene settes
-opp med å legge til en `scripts`-katalog med script inni.
-
-Lykkes det vil bygget automatisk deployes til produksjon så lenge man er på
-master-branch.
+## Sjekkliste for ny app
+1. Bytt navn på app i nais.yaml, settings.gradle og dockerfile.
+2. Fjern kommentering i deploy.yaml (står beskrevet hva man skal kommentere ut)
+3. Legge til deploysecreten i repoet.
 
 ---
 
