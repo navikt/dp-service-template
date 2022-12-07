@@ -24,7 +24,7 @@ object Cucumber {
 object Dagpenger {
 
     object Biblioteker {
-        const val version = "2022.11.24-14.34.528555d5f3df"
+        const val version = "2022.12.07-09.10.209e073691b5"
         const val stsKlient = "com.github.navikt.dp-biblioteker:sts-klient:$version"
         const val ktorUtils = "com.github.navikt.dp-biblioteker:ktor-utils:$version"
 
