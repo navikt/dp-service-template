@@ -44,7 +44,7 @@ object Dagpenger {
         }
     }
 
-    const val Grunnbeløp = "com.github.navikt:dp-grunnbelop:2022.05.20-09.36.a361a7eb490e"
+    const val Grunnbeløp = "com.github.navikt:dp-grunnbelop:2023.04.11-15.15.dd33088904de"
     const val Streams = "com.github.navikt:dagpenger-streams:2022.11.23-13.03.cdf78b1c92f9"
     const val Events = "com.github.navikt:dagpenger-events:2022.11.23-12.45.96e145a02427"
 }
@@ -69,7 +69,7 @@ object GradleWrapper {
 }
 
 object Jackson {
-    const val version = "2.14.2"
+    const val version = "2.15.0"
     const val core = "com.fasterxml.jackson.core:jackson-core:$version"
     const val kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:$version"
     const val jsr310 = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$version"
@@ -175,7 +175,7 @@ object Ktor2 {
 }
 
 object Log4j2 {
-    const val version = "2.19.0"
+    const val version = "2.20.0"
     const val api = "org.apache.logging.log4j:log4j-api:$version"
     const val core = "org.apache.logging.log4j:log4j-core:$version"
     const val slf4j = "org.apache.logging.log4j:log4j-slf4j2-impl:$version"
@@ -194,13 +194,13 @@ object Micrometer {
 }
 
 object Moshi {
-    const val version = "1.9.2"
+    const val version = "1.14.0"
     const val moshi = "com.squareup.moshi:moshi:$version"
     const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:$version"
     const val moshiAdapters = "com.squareup.moshi:moshi-adapters:$version"
 
     // waiting for https://github.com/rharter/ktor-moshi/pull/8
-    const val moshiKtor = "com.github.cs125-illinois:ktor-moshi:7252ca49ed"
+    const val moshiKtor = "com.github.cs125-illinois:ktor-moshi:2022.9.0"
     fun library(name: String) = "com.squareup.moshi:moshi-$name:$version"
 }
 
