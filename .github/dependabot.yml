@@ -18,6 +18,6 @@ updates:
       day: "wednesday"
       timezone: "Europe/Oslo"
     groups:
-      github-actions:
+      gradle:
         patterns:
           - "*"
