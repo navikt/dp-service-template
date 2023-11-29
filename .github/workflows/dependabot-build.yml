@@ -1,10 +1,9 @@
 name: Test Dependabot PRs
 
-#Kommenter inn
-#on:
-#  push:
-#    branches:
-#      - 'dependabot/**'
+on:
+  push:
+    branches:
+      - 'dependabot/**'
 
 jobs:
   test:
