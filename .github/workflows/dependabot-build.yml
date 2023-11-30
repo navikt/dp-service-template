@@ -6,8 +6,43 @@ on:
       - 'dependabot/**'
 
 jobs:
-  test:
-    name: test
+  gradle_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for build.gradle.kts
+        id: gradle-check
+        run: |
+          if [ -f "build.gradle.kts" ]; then
+            echo "Detected build.gradle.kts"
+            echo "::set-output name=gradle_detected::true"
+          else
+            echo "No build.gradle.kts found"
+            echo "::set-output name=gradle_detected::false"
+          fi
+
+  npm_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for package.json
+        id: npm-check
+        run: |
+          if [ -f "package.json" ]; then
+            echo "Detected package.json"
+            echo "::set-output name=npm_detected::true"
+          else
+            echo "No package.json found"
+            echo "::set-output name=npm_detected::false"
+          fi
+
+  build_gradle:
+    needs: [gradle_check]
+    if: steps.gradle-check.outputs.gradle_detected == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,3 +57,22 @@ jobs:
           ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
         with:
           arguments: --configuration-cache test
+
+  build_npm:
+    needs: [npm_check]
+    if: steps.npm-check.outputs.npm_detected == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+        with:
+          node-version: "18.x"
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+
+      - run: npm build
+      - run: npm test
