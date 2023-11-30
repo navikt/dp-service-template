@@ -3,7 +3,7 @@ name: Test Dependabot PRs
 on:
   push:
     branches:
-      - 'dependabot/**'
+      - 'main'
 
 jobs:
   gradle_check:
