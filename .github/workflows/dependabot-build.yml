@@ -8,6 +8,8 @@ on:
 jobs:
   gradle_check:
     runs-on: ubuntu-latest
+    outputs:
+        gradle_detected: ${{ steps.gradle-check.outputs.gradle_detected }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,6 +27,8 @@ jobs:
 
   npm_check:
     runs-on: ubuntu-latest
+    outputs:
+        npm_detected: ${{ steps.npm-check.outputs.npm_detected }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -42,7 +46,7 @@ jobs:
 
   build_gradle:
     needs: [gradle_check]
-    if: steps.gradle-check.outputs.gradle_detected == 'true'
+    if: needs.gradle_check.outputs.gradle_detected == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -60,7 +64,7 @@ jobs:
 
   build_npm:
     needs: [npm_check]
-    if: steps.npm-check.outputs.npm_detected == 'true'
+    if: needs.npm_check.outputs.npm_detected == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v4
