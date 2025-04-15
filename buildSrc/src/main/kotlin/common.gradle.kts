@@ -9,12 +9,13 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven {
-        url = uri("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
-    }
+    maven("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
+    maven("https://jitpack.io")
 }
 
 dependencies {
+    implementation(platform(kotlin("bom")))
+    implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("test"))
 }
 
