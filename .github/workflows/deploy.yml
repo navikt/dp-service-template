@@ -22,15 +22,20 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-      - uses: gradle/wrapper-validation-action@v3.5.0
-      - uses: gradle/gradle-build-action@v3.5.0
+      - uses: gradle/actions/wrapper-validation@v4
+      - uses: gradle/actions/setup-gradle@v4
         env:
           # Eksluder test dependencies
           DEPENDENCY_GRAPH_INCLUDE_CONFIGURATIONS: compileClasspath|runtimeClasspath
         with:
-          gradle-version: wrapper
+          # Generer en krypteringsnøkkel med: openssl rand -base64 16
+          # I repoet på Github: Settings -> Secrets and Variables -> Actions
+          # New repository secret, gi navnet GRADLE_ENCRYPTION_KEY og lim inn
+          # verdien fra kommandoen over, så kan du kommentere inn følgende:
+          # cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
           dependency-graph: generate-and-submit
-          arguments: --configuration-cache build installDist
+          arguments: --configuration-cache build
+        run: ./gradlew --configuration-cache build
 
       - name: docker-build-push
         uses: nais/docker-build-push@v0
