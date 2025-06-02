@@ -22,3 +22,11 @@ spec:
       memory: 256Mi
   secureLogs:
     enabled: true
+  observability:
+    logging:
+      destinations:
+        - id: loki
+        - id: elastic
+    autoInstrumentation:
+      enabled: true
+      runtime: java
