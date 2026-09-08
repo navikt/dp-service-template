@@ -6,12 +6,13 @@ name: Build and deploy
 #  push:
 #    branches-ignore:
 #      - 'dependabot/**'
+#      - 'renovate/**'
 
 jobs:
   build:
     name: Build and publish Docker image
     runs-on: ubuntu-latest
-    permissions: # Sjekk https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs
+    permissions:
       contents: "write"
       checks: "write"
       pull-requests: "write"
@@ -21,36 +22,48 @@ jobs:
       - uses: actions/setup-java@v6.0.0
         with:
           distribution: temurin
-          java-version: 21
+          java-version: 25
       - uses: gradle/actions/wrapper-validation@v6.3.0
       - uses: gradle/actions/setup-gradle@v6.3.0
         env:
           # Eksluder test dependencies
           DEPENDENCY_GRAPH_INCLUDE_CONFIGURATIONS: compileClasspath|runtimeClasspath
         with:
-          # Generer en krypteringsnøkkel med: openssl rand -base64 16
-          # I repoet på Github: Settings -> Secrets and Variables -> Actions
-          # New repository secret, gi navnet GRADLE_ENCRYPTION_KEY og lim inn
-          # verdien fra kommandoen over, så kan du kommentere inn følgende:
-          # cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
           dependency-graph: generate-and-submit
-          arguments: --configuration-cache build
-      - run: ./gradlew --configuration-cache build
+          cache-encryption-key: ${{ secrets.GradleEncryptionKey }}
+      - run: ./gradlew --configuration-cache build installDist
 
       - name: docker-build-push
         uses: nais/docker-build-push@v0
-        if: github.ref == 'refs/heads/main'
         id: docker-build-push
         with:
           team: teamdagpenger
-          push_image: true # optional, default true
           tag: ${{ github.sha }}
-          dockerfile: mediator/Dockerfile # optional, default Dockerfile
-          docker_context: mediator # optional, default .
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          dockerfile: Dockerfile
+          docker_context: .
+          salsa: false
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
+      digest: ${{ steps.docker-build-push.outputs.digest }}
+
+
+
+  salsa:
+    name: Generate SBOM, attest and sign image
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: "write"
+    steps:
+      - name: NAIS login
+        uses: nais/login@v0
+        id: login
+        with:
+          team: teamdagpenger
+      - id: attest-sign
+        uses: nais/attest-sign@v2.0.18
+        with:
+          image_ref: ${{ needs.build.outputs.image }}
 
   deploy-dev:
     name: Deploy to dev
@@ -75,6 +88,7 @@ jobs:
     needs: [ build ]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: prod-gcp
     permissions:
       id-token: write
     steps:
